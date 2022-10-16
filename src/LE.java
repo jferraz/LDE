@@ -28,8 +28,48 @@ public class LE {
         }
     }
 
+    private boolean posicaoOcupada(int posicao){
+        return posicao >= 0 && posicao < this.totalDeElementos;
+    }
+    private Celula retornaPosicao(int posicao){
+        if(!posicaoOcupada(posicao)) {
+            throw new IllegalArgumentException("Posicao Inexistente");
+        }
 
+        Celula atual = primeira;
 
+        for (int i = 0; i < posicao; i++) {
+            atual = atual.getProximo();
+        }
+        return atual;
+    }
+
+    public void inserePosicao(int posicao, Object elemento) {
+
+        if (posicao == 0) {
+            adicionaInicio(elemento);
+        } else if (posicao == this.totalDeElementos) {
+            adicionaFinal(elemento);
+        } else {
+            Celula anterior = this.retornaPosicao(posicao - 1);
+            Celula nova = new Celula(elemento, anterior.getProximo());
+            anterior.setProximo(nova);
+            this.totalDeElementos++;
+        }
+
+    }
+
+    public void removeInicio(){
+        if(this.totalDeElementos == 0) {
+            throw new IllegalArgumentException("Lista vazia");
+        }
+        this.primeira = this.primeira.getProximo();
+        this.totalDeElementos--;
+
+        if(this.totalDeElementos == 0) {
+            this.ultima = null;
+        }
+    }
 
 
 

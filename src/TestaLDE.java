@@ -13,6 +13,14 @@ public class TestaLDE {
         lista.adicionaFinal("Marcelo");
 
         System.out.println(lista);
+
+        lista.inserePosicao(2,"Ulisses");
+
+        System.out.println(lista);
+
+        lista.removeInicio();
+
+        System.out.println(lista);
     }
 
     
