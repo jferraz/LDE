@@ -7,12 +7,14 @@ public class LE {
     private int totalDeElementos = 0;
 
     public void adicionaInicio(Object elemento){
-        Celula nova = new Celula(elemento, primeira);
-        this.primeira = nova;
-
         if(this.totalDeElementos == 0){
-            this.ultima = this.primeira;
-
+            Celula nova = new Celula(elemento);
+            this.primeira = nova;
+            this.ultima = nova;
+        } else {
+            Celula nova = new Celula(this.primeira, elemento);
+            this.primeira.setAnterior(nova);
+            this.primeira = nova;
         }
         this.totalDeElementos++;
     }
@@ -21,8 +23,9 @@ public class LE {
         if(this.totalDeElementos == 0){
             adicionaInicio(elemento);
         } else {
-            Celula nova = new Celula(elemento, null);
+            Celula nova = new Celula(elemento);
             this.ultima.setProximo(nova);
+            nova.setAnterior(this.ultima);
             this.ultima = nova;
             this.totalDeElementos++;
         }
@@ -52,11 +55,14 @@ public class LE {
             adicionaFinal(elemento);
         } else {
             Celula anterior = this.retornaPosicao(posicao - 1);
-            Celula nova = new Celula(elemento, anterior.getProximo());
+            Celula proxima = anterior.getProximo();
+
+            Celula nova = new Celula(anterior.getProximo(),elemento);
+            nova.setAnterior(anterior);
             anterior.setProximo(nova);
+            proxima.setAnterior(nova);
             this.totalDeElementos++;
         }
-
     }
 
     public void removeInicio(){
@@ -69,6 +75,10 @@ public class LE {
         if(this.totalDeElementos == 0) {
             this.ultima = null;
         }
+    }
+
+    public void removeFinal(){
+
     }
 
 
