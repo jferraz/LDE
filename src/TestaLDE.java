@@ -21,6 +21,25 @@ public class TestaLDE {
         lista.removeInicio();
 
         System.out.println(lista);
+
+        lista.removeFinal();
+
+        System.out.println(lista);
+
+        lista.adicionaInicio("Hipócrates");
+        lista.adicionaInicio("Epaminondas");
+        lista.adicionaInicio("Epíteto");
+
+        System.out.println(lista);
+
+        lista.removePosicao(3);
+
+        System.out.println(lista);
+
+        System.out.println(lista.buscarElemento("Ulisses"));
+
+        lista.inverteLDE();
+
     }
 
     

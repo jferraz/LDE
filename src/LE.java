@@ -1,5 +1,10 @@
 package src;
-
+// FEITO 1) buscar um elemento na LDE. Retorne -1 caso não encontre o elemento ou a posição do elemento encontrado (int);
+// FEITO 2) Remover do meio (5 elementos - deletar 3); {1,2,3,4,5} => removerMeio() => {1,2,4,5};
+// 3) Verificar se a LDE tem elementos repetidos (fazer um método para retornar true ou false caso a lista tenha ou não elementos repetidos;
+// 4) Supondo que a LDE tem elementos repetidos verificar qual é o elemento que mais se repete.
+// 5) Implemente um método para inverter uma LDE;
+// FEITO 6) Implemente um método para remover de qualquer posição da LDE;
 public class LE {
 
     private Celula primeira = null;
@@ -47,6 +52,7 @@ public class LE {
         return atual;
     }
 
+
     public void inserePosicao(int posicao, Object elemento) {
 
         if (posicao == 0) {
@@ -78,12 +84,49 @@ public class LE {
     }
 
     public void removeFinal(){
-
+        if(this.totalDeElementos == 1){
+            this.removeInicio();
+        } else {
+            Celula penultima = this.ultima.getAnterior();
+            penultima.setProximo(null);
+            this.ultima = penultima;
+            this.totalDeElementos--;
+        }
     }
 
+    public void removePosicao(int posicao){
+        if(posicao == 0) {
+            this.removeInicio();
+        } else if (posicao == this.totalDeElementos - 1){
+            this.removeFinal();
+        } else {
+            Celula anterior = this.retornaPosicao(posicao - 1);
+            Celula atual = anterior.getProximo();
+            Celula proxima = atual.getProximo();
 
+            anterior.setProximo(proxima);
+            proxima.setAnterior(anterior);
 
+            this.totalDeElementos--;
+        }
+    }
 
+    // 1) buscar um elemento na LDE. Retorne -1 caso não encontre o elemento ou a posição do elemento encontrado (int);
+    public Object buscarElemento(Object elemento){
+        Celula atual = this.primeira;
+        for (int i = 0; i < totalDeElementos; i++) {
+            if (atual.getElemento().equals(elemento)) {
+                return "Elemento encontra-se na posição " + i;
+            }
+            atual = atual.getProximo();
+        }
+        return "-1";
+    }
+
+//    public void inverteLDE(){
+//        Celula atual = this.ultima;
+//
+//    }
 
 
     @Override
